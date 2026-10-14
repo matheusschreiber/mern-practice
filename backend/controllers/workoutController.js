@@ -1,11 +1,19 @@
 const Workout = require('../models/workoutModel')
 const mongoose = require('mongoose')
+const { computeStats } = require('../utils/workoutStats')
 
 // get all workouts
 const getWorkouts = async (req, res) => {
   const workouts = await Workout.find({}).sort({createdAt: -1})
 
   res.status(200).json(workouts)
+}
+
+// get summary stats for all workouts
+const getWorkoutStats = async (req, res) => {
+  const workouts = await Workout.find({}).lean()
+
+  res.status(200).json(computeStats(workouts))
 }
 
 // get a single workout
@@ -92,6 +100,7 @@ const updateWorkout = async (req, res) => {
 module.exports = {
   getWorkouts,
   getWorkout,
+  getWorkoutStats,
   createWorkout,
   deleteWorkout,
   updateWorkout
