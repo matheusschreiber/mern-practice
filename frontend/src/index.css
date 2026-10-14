@@ -67,6 +67,21 @@ header a {
   color: #333;
 }
 
+/* search and sort */
+.workout-filters {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+}
+.workout-filters input,
+.workout-filters select {
+  margin: 0;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-family: inherit;
+}
+
 /* new workout form */
 label, input {
   display: block;
