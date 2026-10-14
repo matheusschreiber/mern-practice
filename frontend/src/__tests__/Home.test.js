@@ -85,4 +85,14 @@ describe('Home search and sort', () => {
     // "Squat" has no "e", so only the other two stay, heaviest first
     expect(shownTitles()).toEqual(['Deadlift', 'Bench Press'])
   })
+
+  test('changes sort back to newest', async () => {
+    await renderHome()
+    
+    userEvent.selectOptions(screen.getByLabelText('Sort workouts'), 'reps')
+    expect(shownTitles()).toEqual(['Bench Press', 'Squat', 'Deadlift'])
+
+    userEvent.selectOptions(screen.getByLabelText('Sort workouts'), 'newest')
+    expect(shownTitles()).toEqual(['Squat', 'Bench Press', 'Deadlift'])
+  })
 })
