@@ -70,6 +70,29 @@ const deleteWorkout = async (req, res) => {
   res.status(200).json(workout)
 }
 
+// delete several workouts at once
+const deleteWorkouts = async (req, res) => {
+  const { ids } = req.body
+
+  if (!Array.isArray(ids) || ids.length === 0) {
+    return res.status(400).json({ error: 'Please provide a list of workout ids' })
+  }
+
+  const invalidIds = ids.filter((id) => !mongoose.Types.ObjectId.isValid(id))
+
+  if (invalidIds.length > 0) {
+    return res.status(400).json({ error: 'Some ids are invalid', invalidIds })
+  }
+
+  const uniqueIds = [...new Set(ids)]
+
+  uniqueIds.forEach(async (id) => {
+    await Workout.findOneAndDelete({ _id: id })
+  })
+
+  res.status(200).json({ deletedIds: uniqueIds })
+}
+
 // update a workout
 const updateWorkout = async (req, res) => {
   const { id } = req.params
@@ -94,5 +117,6 @@ module.exports = {
   getWorkout,
   createWorkout,
   deleteWorkout,
+  deleteWorkouts,
   updateWorkout
 }
