@@ -28,6 +28,10 @@ describe('median', () => {
     median(input)
     assert.deepEqual(input, [60, 20, 40])
   })
+
+  test('handles sort properly', () => {
+    assert.equal(median([9, 10, 100]), 10)
+  })
 })
 
 describe('computeStats', () => {
