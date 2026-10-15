@@ -48,6 +48,7 @@ const WorkoutForm = () => {
         type="text" 
         onChange={(e) => setTitle(e.target.value)} 
         value={title}
+        placeholder="title"
         className={emptyFields.includes('title') ? 'error' : ''}
       />
 
@@ -56,6 +57,7 @@ const WorkoutForm = () => {
         type="number" 
         onChange={(e) => setLoad(e.target.value)} 
         value={load}
+        placeholder="load"
         className={emptyFields.includes('load') ? 'error' : ''}
       />
 
@@ -64,6 +66,7 @@ const WorkoutForm = () => {
         type="number" 
         onChange={(e) => setReps(e.target.value)} 
         value={reps}
+        placeholder="reps"
         className={emptyFields.includes('reps') ? 'error' : ''}
       />
 
