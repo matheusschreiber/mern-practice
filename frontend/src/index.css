@@ -67,6 +67,23 @@ header a {
   color: #333;
 }
 
+/* expandable workout cards */
+.workout-details .toggle-details {
+  background: none;
+  border: none;
+  padding: 0;
+  margin-top: 6px;
+  color: var(--primary);
+  font-family: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.workout-details .extra-details {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #eee;
+}
+
 /* new workout form */
 label, input {
   display: block;

@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useWorkoutsContext } from '../hooks/useWorkoutsContext'
 
 // date fns
@@ -5,6 +6,7 @@ import formatDistanceToNow from 'date-fns/formatDistanceToNow'
 
 const WorkoutDetails = ({ workout }) => {
   const { dispatch } = useWorkoutsContext()
+  const [expanded, setExpanded] = useState(false)
 
   const handleClick = async () => {
     const response = await fetch('/api/workouts/' + workout._id, {
@@ -23,6 +25,15 @@ const WorkoutDetails = ({ workout }) => {
       <p><strong>Load (kg): </strong>{workout.load}</p>
       <p><strong>Number of reps: </strong>{workout.reps}</p>
       <p>{formatDistanceToNow(new Date(workout.createdAt), { addSuffix: true })}</p>
+      <button className="toggle-details" onClick={() => setExpanded(!expanded)}>
+        {expanded ? 'Hide details' : 'Show details'}
+      </button>
+      {expanded && (
+        <div className="extra-details">
+          <p><strong>Added on: </strong>{new Date(workout.createdAt).toLocaleDateString()}</p>
+          <p><strong>Volume (kg): </strong>{workout.load * workout.reps}</p>
+        </div>
+      )}
       <span className="material-symbols-outlined" onClick={handleClick}>delete</span>
     </div>
   )
