@@ -104,4 +104,13 @@ describe('GET /api/workouts/records', () => {
       assert.equal(response.status, 400, `limit=${limit} should be rejected`)
     }
   })
+
+  test('setting limit to 1 returns only one record', async () => {
+    const response = await fetch(`${baseUrl}/api/workouts/records?limit=1`)
+    const body = await response.json()
+
+    assert.equal(response.status, 200)
+    assert.equal(body.length, 1)
+    assert.equal(body[0].load, 140)
+  })
 })
