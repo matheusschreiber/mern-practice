@@ -1,11 +1,25 @@
 const Workout = require('../models/workoutModel')
 const mongoose = require('mongoose')
+const { personalRecords, DEFAULT_LIMIT } = require('../utils/personalRecords')
 
 // get all workouts
 const getWorkouts = async (req, res) => {
   const workouts = await Workout.find({}).sort({createdAt: -1})
 
   res.status(200).json(workouts)
+}
+
+// get the personal record (heaviest load) of each exercise
+const getPersonalRecords = async (req, res) => {
+  const limit = req.query.limit === undefined ? DEFAULT_LIMIT : Number(req.query.limit)
+
+  if (!Number.isInteger(limit) || limit < 1) {
+    return res.status(400).json({ error: 'limit must be a whole number greater than 0' })
+  }
+
+  const workouts = await Workout.find({}).lean()
+
+  res.status(200).json(personalRecords(workouts, limit))
 }
 
 // get a single workout
@@ -92,6 +106,7 @@ const updateWorkout = async (req, res) => {
 module.exports = {
   getWorkouts,
   getWorkout,
+  getPersonalRecords,
   createWorkout,
   deleteWorkout,
   updateWorkout

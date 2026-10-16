@@ -2,6 +2,7 @@ const express = require('express')
 const {
   getWorkouts, 
   getWorkout, 
+  getPersonalRecords,
   createWorkout, 
   deleteWorkout, 
   updateWorkout
@@ -11,6 +12,9 @@ const router = express.Router()
 
 // GET all workouts
 router.get('/', getWorkouts)
+
+// GET personal records
+router.get('/records', getPersonalRecords)
 
 // GET a single workout
 router.get('/:id', getWorkout)
